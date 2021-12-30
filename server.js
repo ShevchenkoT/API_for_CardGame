@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const url = 'YourURL'; // your MongoDB url
+const url =
+  'mongodb+srv://taras:werty123@cluster0.4uh3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'; // your MongoDB url
 const mongoose = require('mongoose');
 
 // requests setting
