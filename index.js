@@ -26,7 +26,11 @@ mongoose
   .then(() => console.log('MongoDb connected...'))
   .catch((e) => console.log(e));
 
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  res.send('<h1>Game Card API</h2>');
+});
 
 app.listen(port, () => {
   console.log('Server started...');
@@ -64,7 +68,7 @@ const RecordSchema = new mongoose.Schema({
 });
 const Users = mongoose.model('record', RecordSchema);
 
-// get request
+// // get request
 app.get('/records', (req, res) => {
   Users.find((err, records) => {
     res.json(records);
@@ -97,3 +101,15 @@ app.post('/records', ({ body }, res) => {
 function idGenerator() {
   return `-${Math.random().toString(16).slice(2)}`;
 }
+// const express = require('express');
+// const app = express();
+
+// app.get('/', (req, res) => {
+//   res.send('Welcome to the home page baby');
+// });
+
+// const port = process.env.PORT || 80;
+
+// app.listen(port, () => {
+//   console.log('Wazzapppp');
+// });
