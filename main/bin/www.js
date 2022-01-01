@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
-const url =
-  'mongodb+srv://taras:werty123@cluster0.4uh3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'; // your MongoDB url
 const mongoose = require('mongoose');
+
+const { PORT, MONGODB_URL } = require('../../environment.config');
+
+const port = process.env.PORT || PORT;
 
 // requests setting
 app.use((req, res, next) => {
@@ -20,27 +22,23 @@ app.use((req, res, next) => {
 });
 
 mongoose
-  .connect(url, {
+  .connect(MONGODB_URL, {
     useNewUrlParser: true
   })
   .then(() => console.log('MongoDb connected...'))
   .catch((e) => console.log(e));
 
-const port = process.env.PORT || 3000;
-
+// start page
 app.get('/', (req, res) => {
   res.send('<h1>Game Card API</h2>');
 });
 
+// start server
 app.listen(port, () => {
   console.log('Server started...');
 });
 
 const RecordSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true
-  },
   nickname: {
     type: String,
     required: true
@@ -68,23 +66,20 @@ const RecordSchema = new mongoose.Schema({
 });
 const Users = mongoose.model('record', RecordSchema);
 
-// // get request
+// get request
 app.get('/records', (req, res) => {
   Users.find((err, records) => {
     res.json(records);
+    console.log('Get Records');
   });
-  console.log('Get Records');
 });
 
 // parse data from post request
 app.use(express.json());
 // post request
 app.post('/records', ({ body }, res) => {
-  const id = idGenerator();
-
   const newRecord = {
-    ...body,
-    id
+    ...body
   };
 
   Users.create(newRecord)
@@ -97,19 +92,3 @@ app.post('/records', ({ body }, res) => {
 
   console.log('Add record');
 });
-
-function idGenerator() {
-  return `-${Math.random().toString(16).slice(2)}`;
-}
-// const express = require('express');
-// const app = express();
-
-// app.get('/', (req, res) => {
-//   res.send('Welcome to the home page baby');
-// });
-
-// const port = process.env.PORT || 80;
-
-// app.listen(port, () => {
-//   console.log('Wazzapppp');
-// });

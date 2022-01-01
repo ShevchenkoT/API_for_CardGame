@@ -1,7 +1,0 @@
-post http://localhost:3000/users 
-
-{
-  "name":"test",
-  "age": 22,
-}
-
