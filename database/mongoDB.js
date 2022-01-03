@@ -23,7 +23,7 @@ const setOneRecord = async ({ body }, res) => {
     ...body
   };
 
-  await Users.create(newRecord)
+  await Records.create(newRecord)
     .then(() => {
       res.json(newRecord);
     })
