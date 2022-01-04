@@ -3,6 +3,7 @@ const app = express();
 
 module.exports = app;
 
+// add the following middleware
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(

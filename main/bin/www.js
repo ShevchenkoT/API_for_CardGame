@@ -1,11 +1,8 @@
 const { PORT } = require('../../environment.config');
+const { getAllRecords, setOneRecord } = require('../../database/mongoDB');
+const app = require('../app');
 
 const port = process.env.PORT || PORT;
-
-const { getAllRecords, setOneRecord } = require('../../database/mongoDB');
-
-const app = require('../app');
-// requests setting
 
 // start server
 app.listen(port, () => {
